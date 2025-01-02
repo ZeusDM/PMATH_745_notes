@@ -1,0 +1,281 @@
+\documentclass[notitlepage]{scrbook}
+\KOMAoptions{
+	DIV=12,
+	fontsize=12pt,
+	paper=letter,
+	twoside=false,
+	parskip=half-,
+}
+\usepackage[onehalfspacing, nodisplayskipstretch]{setspace}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{enumitem}
+\setlist{noitemsep}
+\setlist[enumerate]{label={(\alph*)}}
+
+\usepackage[T1]{fontenc}
+\usepackage{mlmodern}  
+\makeatletter
+\input{t1mlmr.fd}
+\makeatother
+\DeclareFontShape{T1}{mlmr}{m}{scit}{<->ssub*mlmr/m/scsl}{}
+
+\usepackage{tikz}
+\usetikzlibrary{arrows, positioning}
+\usepackage{subcaption}
+
+\usepackage{xcolor}
+\usepackage[
+    colorlinks=true,
+    linkcolor=blue!60!black,      % For internal links
+    citecolor=green!70!black,     % For citation links
+    urlcolor=orange!70!black,      % For URLs
+    filecolor=cyan!60!black        % For file links
+]{hyperref}
+
+\usepackage[canadian]{babel}
+\usepackage{csquotes}
+\usepackage[showseconds=false, showzone=false]{datetime2}
+\DTMsettimestyle{en-CA}
+
+\usepackage{amsthm}
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{fact}[theorem]{Fact}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{problem}{Problem}
+\newtheorem{question}{Question}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\vocab}[1]{\textbf{#1}}
+
+\usepackage[mathscr]{eucal}     % For \EuScript
+\usepackage{mathtools}
+\renewcommand{\geq}{\geqslant}
+\renewcommand{\ge}{\geqslant}
+\renewcommand{\leq}{\leqslant}
+\renewcommand{\le}{\leqslant}
+\usepackage{booktabs}
+\usepackage{ytableau}
+\ytableausetup{centertableaux, smalltableaux}
+
+% Set of Partitions
+\DeclareMathOperator\Par{\mathsf{Par}}
+\DeclareMathOperator\Comp{\mathsf{Comp}}
+
+% Ring of symmetric functions
+\DeclareMathOperator\Sym{\mathsf{\Lambda}}
+
+% Symmetric group
+\newcommand{\sym}[1]{\mathscr{S}_{#1}}
+
+% Cycle type
+\DeclareMathOperator\cyc{\mathsf{cyc}}
+
+% Inversion number
+\DeclareMathOperator\inv{\mathsf{inv}}
+
+% Sign of a permutation
+\DeclareMathOperator\sign{\mathsf{sign}}
+
+% Grassmannian
+\DeclareMathOperator\Grassmanian{\mathsf{Gr}}
+
+% General Linear group
+\makeatletter
+\newcommand{\GL}[2][]{%
+  \mathsf{GL}%
+  \if\relax\detokenize{#1}\relax
+    % No optional argument
+    (#2)%
+  \else
+    % Optional argument provided
+    _{#1}(#2)%
+  \fi
+}
+\makeatother
+
+% Special Linear group
+\makeatletter
+\newcommand{\SL}[2][]{%
+  \mathsf{SL}%
+  \if\relax\detokenize{#1}\relax
+    % No optional argument
+    (#2)%
+  \else
+    % Optional argument provided
+    _{#1}(#2)%
+  \fi
+}
+\makeatother
+
+% Identity operator
+\DeclareMathOperator\id{\mathsf{id}}
+
+% Automorphism group
+\DeclareMathOperator\Aut{\mathsf{Aut}}
+
+% Matrix space
+\DeclareMathOperator\Mat{\mathcal{M}}
+
+% Hilbert series
+\DeclareMathOperator\Hilb{\mathsf{Hilb}}
+
+% Invariant subspace
+\DeclareMathOperator\Inv{\mathsf{Inv}}
+
+% Alternating group
+\DeclareMathOperator\Alt{\mathsf{Alt}}
+
+% Alternating polynomial
+\DeclareMathOperator\AltPoly{\mathsf{AltPoly}}
+
+% Weight of a tableau
+\DeclareMathOperator\wt{\mathsf{wt}}
+
+% Set of semistandard Young tableaux
+\DeclareMathOperator\SSYT{\mathsf{SSYT}}
+
+% Robinson–Schensted-Knuth correspondence
+\DeclareMathOperator\RSK{\mathsf{RSK}}
+
+% Row reading word
+\DeclareMathOperator\rowword{\mathsf{w}_{\text{\textsf{row}}}}
+
+% q-binomial coefficient
+\newcommand{\qbinom}[3][q]{\genfrac{[}{]}{0pt}{}{#2}{#3}_{#1}}
+
+% Integers
+\newcommand{\integers}{\mathbb{Z}}
+
+% Nonnegative integers
+\newcommand{\nonnegatives}{\mathbb{N}}
+
+% Positive integers
+\newcommand{\positives}{\integers_{> 0}}
+
+% Rational numbers
+\newcommand{\rationals}{\mathbb{Q}}
+
+% Real numbers
+\newcommand{\reals}{\mathbb{R}}
+
+% Complex numbers
+\newcommand{\complexes}{\mathbb{C}}
+
+% Sorted composition
+\newcommand{\sort}[1]{\overleftarrow{#1}}
+
+% Finite field
+\newcommand{\finitefield}[1]{\mathbb{F}_{#1}}
+
+% Schur function
+\newcommand{\schur}[1]{s_{#1}}
+
+% Bender–Knuth involution
+\newcommand{\BK}[1]{\operatorname{BK}_{#1}}
+
+\newcommand\interval[1]{
+  \if#11
+    \{1\}
+  \else
+    \if#12
+      \{1, 2\}
+    \else
+      \if#13
+        \{1, 2, 3\}
+      \else
+        \if#14
+          \{1, 2, 3, 4\}
+        \else
+          \left\{1, \dots, #1\right\}
+        \fi
+      \fi
+    \fi
+  \fi
+}
+
+\newcommand\sg[1]{\EuScript{S}_{#1}}
+\newcommand\eltr[1]{
+    \sigma_{#1}
+}
+
+\usepackage{listofitems}
+
+\newcommand\perm[2][,]{%
+  \readlist\thecycle{#2}%
+    [\foreachitem\i\in\thecycle{\ifnum\icnt=1\else#1\fi\i}]%
+}
+\newcommand\tuple[2][]{%
+  \readlist\thecycle{#2}%
+  \foreachitem\i\in\thecycle{\ifnum\icnt=1\else#1\fi\i}%
+}
+\newcommand\word[2][]{%
+  \def\temp{#2}\ifx\temp\empty%
+    \varnothing%
+  \else%
+    \readlist\thecycle{#2}%
+      \foreachitem\i\in\thecycle{\ifnum\icnt=1\else#1\fi\i}%
+  \fi%
+}
+\newcommand\composition[2][]{%
+  \def\temp{#2}\ifx\temp\empty%
+    \varnothing%
+  \else%
+    \readlist\thecycle{#2}%
+      \foreachitem\i\in\thecycle{\ifnum\icnt=1\else#1\fi\i}%
+  \fi%
+}
+
+
+% https://tex.stackexchange.com/questions/343136/inline-spacing-within-the-cases-command-when-document-is-in-doublespace-mode
+\makeatletter
+\newcommand\new@setfontsize[3]{%
+    \ifx \protect \@typeset@protect \let \@currsize #1\fi \fontsize {#2}{#3}\selectfont
+}
+\let\orig@setfontsize\@setfontsize
+\let\orig@cases\cases
+\let\endorig@cases\endcases
+
+\renewenvironment{cases}{%
+    \let\@setfontsize\new@setfontsize
+    \setstretch{\setspace@singlespace}%
+    \let\setfontsize\orig@setfontsize
+    \orig@cases
+}{%
+    \endorig@cases
+}
+\makeatother
+
+\DeclareFontShape{TU}{lmr}{m}{scit}{<->ssub * lmr/m/scsl}{}
+
+\usepackage[style=alphabetic, backend=biber,isbn=false,url=false]{biblatex} 
+\addbibresource{references.bib}
+
+\title{Notes for Representations of Finite Groups}
+\author{Mantained by Guilherme Zeus Dantas e Moura}
+\date{Last updated on \DTMnow.}
+
+\begin{document}
+	\maketitle
+
+  This document contains my lecture notes for PMATH 745, Representations of Finite Groups,
+  taught by Faisal Al-Faisal at the University of Waterloo in the Winter 2025 term.
+  Any errors, inaccuracies, or misinterpretations are entirely my own.
+  Use these notes at your own discretion.
+  If you find any errors, please:
+  \begin{itemize}
+    \item submit a pull request to the GitHub repository, or 
+    \item request access to the Overleaf project, or
+    \item report the error to me directly.
+  \end{itemize}
+
+  \tableofcontents
+
+  \input{chapters/01_introduction.tex}
+
+  % \printbibliography
+\end{document}
